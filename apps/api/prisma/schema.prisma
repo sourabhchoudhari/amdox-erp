@@ -23,3 +23,31 @@ model Employee {
   salary      Float
   createdAt   DateTime @default(now())
 }
+model Inventory {
+  id          Int      @id @default(autoincrement())
+  itemName    String
+  category    String
+  quantity    Int
+  unitPrice   Float
+  supplier    String
+  createdAt   DateTime @default(now())
+}
+model Attendance {
+  id         Int      @id @default(autoincrement())
+  employeeId Int
+  date       DateTime
+  status     String
+  checkIn    String?
+  checkOut   String?
+  createdAt  DateTime @default(now())
+}
+model Payroll {
+  id          Int      @id @default(autoincrement())
+  employeeId  Int
+  month       String
+  basicSalary Float
+  bonus       Float   @default(0)
+  deductions  Float   @default(0)
+  netSalary   Float
+  createdAt   DateTime @default(now())
+}

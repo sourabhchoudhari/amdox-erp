@@ -14,7 +14,31 @@ export class AuthService {
   ) {}
 
   async register(data: RegisterDto) {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    console.log('====================');
+    console.log('REGISTER DATA:');
+    console.log(data);
+    console.log('====================');
+
+    if (!data) {
+      throw new Error('Request body is empty');
+    }
+
+    if (!data.name) {
+      throw new Error('Name is missing');
+    }
+
+    if (!data.email) {
+      throw new Error('Email is missing');
+    }
+
+    if (!data.password) {
+      throw new Error('Password is missing');
+    }
+
+    const hashedPassword = await bcrypt.hash(
+      data.password,
+      10,
+    );
 
     const user = await this.prisma.user.create({
       data: {
@@ -38,7 +62,9 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new UnauthorizedException('Invalid email');
+      throw new UnauthorizedException(
+        'Invalid email',
+      );
     }
 
     const isPasswordValid = await bcrypt.compare(
@@ -47,7 +73,9 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid password');
+      throw new UnauthorizedException(
+        'Invalid password',
+      );
     }
 
     const token = this.jwtService.sign({

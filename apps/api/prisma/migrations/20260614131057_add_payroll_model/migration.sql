@@ -1,0 +1,13 @@
+-- CreateTable
+CREATE TABLE "Payroll" (
+    "id" SERIAL NOT NULL,
+    "employeeId" INTEGER NOT NULL,
+    "month" TEXT NOT NULL,
+    "basicSalary" DOUBLE PRECISION NOT NULL,
+    "bonus" DOUBLE PRECISION NOT NULL DEFAULT 0,
+    "deductions" DOUBLE PRECISION NOT NULL DEFAULT 0,
+    "netSalary" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Payroll_pkey" PRIMARY KEY ("id")
+);
